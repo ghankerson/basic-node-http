@@ -1,0 +1,22 @@
+logs
+*.log
+npm-debug.log*
+.DS_Store
+.next
+.vscode
+*.swp
+
+coverage
+build
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+node_modules
+.DS_Store
+public
+
+# Ignore editor configs
+/.vscode/*
+tags
