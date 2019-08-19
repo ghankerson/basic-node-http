@@ -5,6 +5,7 @@
   "main": "server.js",
   "dependencies": {
     "express": "^4.17.1",
+    "memcached": "^2.2.2",
     "node-fetch": "^2.6.0"
   },
   "devDependencies": {

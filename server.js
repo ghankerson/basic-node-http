@@ -4,6 +4,30 @@ const port = 3100;
 const fetch = require('node-fetch');
 const https = require('https');
 const agent = new https.Agent({ keepAlive: true });
+const Memcached = require('memcached');
+
+let memcached = new Memcached('127.0.0.1:11211');
+
+let memcachedMiddleware = (duration) => {
+  return (req, res, next) => {
+    let key = '__express__' + req.originalUrl || req.url;
+    memcached.get(key, function(err, data) {
+      if (data) {
+        res.send(data);
+        return;
+      } else {
+        res.sendResponse = res.send;
+        res.send = (body) => {
+          memcached.set(key, body, duration, function(err) {
+            //err
+          });
+          res.sendResponse(body);
+        };
+        next();
+      }
+    });
+  };
+};
 
 const wtf = function() {
   return {
@@ -40,7 +64,7 @@ const wtf = function() {
   };
 };
 
-app.get('/', (req, res) => {
+app.get('/', memcachedMiddleware(20), (req, res) => {
   const pageSize = 100;
   const query = JSON.stringify({
     query: `
