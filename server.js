@@ -22,7 +22,7 @@ const wtf = function() {
       return xml;
     },
     makeQuery: async function() {
-      return await fetch('https://cms.splendidtable.org/api/home', {
+      return await fetch('https://api.github.com/users/ghankerson', {
         method: 'GET',
         agent: agent
       })
