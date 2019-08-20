@@ -53,7 +53,7 @@ app.get('/', (req, res) => {
   });
 
   let wtfReally = new wtf();
-  const queryRes = wtfReally.makeQuery(query);
+  const queryRes = wtfReally.makeQuery();
   const xml = wtfReally.xmlbuilder(req.headers.host);
   res.setHeader('Content-Type', 'text/xml');
   wtfReally = null;
